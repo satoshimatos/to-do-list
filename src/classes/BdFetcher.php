@@ -40,7 +40,7 @@ class BdFetcher
   {
     $connection = new Connection();
     $query = "SELECT * FROM todo WHERE id=" .
-    (int) $id . "," . "archived='N'";
+    (int) $id . " AND " . "archived='N'";
     $fetch = pg_query($connection->connect(),$query);
     $result = pg_fetch_assoc($fetch);
     if (!$result) {
@@ -61,13 +61,13 @@ class BdFetcher
       $obj->setDescription(null);
     }
     $query = "INSERT INTO todo (
-      title, description, entry_time, observations, archived)
+      title, description, entry_time, observations, archived, edited)
       VALUES (
         '"  . $obj->getTitle()        . "'," .
         "'" . $obj->getDescription()  . "'," .
         "'" . $obj->getEntry_time()   . "'," .
         "'" . $obj->getObservations() . "'," .
-        "'N')";
+        "'N', 'N')";
     $result = pg_query($connection->connect(),$query);
     if (!$result) {
       echo "An error occurred, try again.";
@@ -96,8 +96,9 @@ class BdFetcher
     $query = "UPDATE todo SET " .
       "title='" . $title . "'," .
       "description='" . $description . "'," .
-      "observations='" . $observations . "' " .
-      "WHERE id=" . (int) $id . "," .
+      "observations='" . $observations . "'," .
+      "edited='Y' " .
+      "WHERE id=" . (int) $id . " AND " .
       "archived='N'";
     $result = pg_query($connection->connect(),$query);
     return $result;

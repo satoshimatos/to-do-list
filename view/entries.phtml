@@ -18,12 +18,12 @@ foreach ($entries as $row) : ?>
     <input type="hidden" name="id" value="<?php echo $row['id'] ?>" />
     <div class="form-group">
       <div class="row">
-        <div class="col-sm-4">
-          <?php echo $row['entry_time'] ?>
+        <div class="col-sm-5">
+          <?php if ($row['edited'] == 'Y') { echo "<b>(E)&nbsp</b>"; } echo $row['entry_time'] ?>
         </div>
         <div class="col-sm text-right">
           <button class="btn btn-secondary btn-sm col-sm-3" type="submit" name="edit_entry">Edit</button>
-          <button class="btn btn-info btn-sm col-sm-3" type="submit" name="archive">Archive</button>
+          <button class="btn btn-info btn-sm col-sm-3" onclick="return confirm('Are you sure you want to archive this entry?')" type="submit" name="archive">Archive</button>
         </div>
       </div>
       <input type="text" name="title" class="form-control col-sm" id="field1" value="<?php echo $row['title'] ?>" disabled />
