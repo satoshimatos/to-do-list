@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="icon" href="###ICON_URL###">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8" />
+  <title>Satoshi's To-do List</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h1><b>My to-do list</b></h1>
+      </div>
+      <div class="col-sm-6">
+        <h3><span class="badge badge-success" id="log"></span></h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <?php include "add.phtml" ?>
+        <form method="post">
+          <button name="regular" type="submit" class="btn btn-info btn-block">See all to-do entries</button>
+          <button name="archived" type="submit" class="btn btn-secondary btn-block">See all archived entries</button>
+        </form>
+      </div>
+      <div class="col-sm-6">
+        <?php
+        if (isset($_POST['edit_entry'])) {
+          include "edit.phtml";
+        } else if (isset($_POST['archived'])) {
+          include "archived.phtml";
+        } else if (isset($_POST['delete_entry'])) {
+          include "archived.phtml";
+        } else {
+          include "entries.phtml";
+        } ?>
+      </div>
+    </div>
+  </div>
+</body>
+
+<footer>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</footer>
+
+</html>
+
+<?php if (isset($_POST['delete_entry'])) : ?>
+  <script>
+    $tag = document.getElementById('log')
+    $tag.innerHTML = "Entry deleted successfully!"
+  </script>
+<?php elseif (isset($_POST['edit'])) : ?>
+  <script>
+    $tag = document.getElementById('log')
+    $tag.innerHTML = "Entry edited successfully!"
+  </script>
+<?php elseif (isset($_POST['submit'])) : ?>
+  <script>
+    $tag = document.getElementById('log')
+    $tag.innerHTML = "New entry added successfully!"
+  </script>
+<?php elseif (isset($_POST['archive'])) : ?>
+  <script>
+    $tag = document.getElementById('log')
+    $tag.innerHTML = "Entry archived successfully!"
+  </script>
+<?php elseif (isset($_POST['unarchive'])) : ?>
+  <script>
+    $tag = document.getElementById('log')
+    $tag.innerHTML = "Entry unarchived successfully!"
+  </script>
+<?php endif; ?>

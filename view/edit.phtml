@@ -1,0 +1,25 @@
+<?php
+require_once "../src/classes/BdFetcher.php";
+$entries = BdFetcher::fetchRow($_POST['id']);
+?>
+
+<h2>Edit entry</h2>
+<form method="post" name="test" class="needs-validation was-validated">
+  <div class="form-group">
+    <input type="hidden" value="<?php echo $_POST['id'] ?>" name="id"/>
+    <label for="field1">Title</label>
+    <input type="text" name="title" class="form-control col-sm-8" id="field1" value="<?php echo $entries['title'] ?>" required />
+  </div>
+  <div class="form-group">
+    <label for="field1">Content</label>
+    <textarea name="desc" class="form-control col-sm-8" id="field2" rows="5" required><?php echo $entries['description'] ?></textarea>
+  </div>
+  <div class="form-group">
+    <label for="field1">Comments</label>
+    <input type="text" name="comments" class="form-control col-sm-8" id="field3" value="<?php echo $entries['observations'] ?>" />
+  </div>
+  <div class="form-group">
+    <button name="edit" type="submit" class="btn btn-primary col-sm-2">Edit</button>
+  </div>
+</form>
+
