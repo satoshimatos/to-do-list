@@ -25,6 +25,9 @@ class Entry
 
   public function __construct($title, $desc, $obs = null)
   {
+    $title = str_replace("'","''",$title);
+    $desc  = str_replace("'","''",$desc);
+    $obs   = str_replace("'","''",$obs);
     $this->title        = $title;
     $this->description  = $desc;
     $this->observations = $obs;

@@ -1,7 +1,7 @@
 <?php
 require_once "../src/classes/BdFetcher.php";
 $entries = BdFetcher::fetchAllArchived();
-rsort($entries);
+
 ?>
 <script src="https://kit.fontawesome.com/c1884176b5.js" crossorigin="anonymous"></script>
 
@@ -19,11 +19,11 @@ foreach ($entries as $row) : ?>
     <div class="form-group">
       <div class="row">
         <div class="col-sm-5">
-          <?php if ($row['edited'] == 'Y') { echo "<b>(E)&nbsp</b>"; } echo $row['entry_time'] ?>
+          <?php if ($row['edited'] == 'Y') { echo "<b data-toggle='tooltip' title=' Edited on " . $row['edit_time'] . "'>(E)&nbsp</b>"; } echo $row['entry_time'] ?>
         </div>
         <div class="col-sm text-right">
           <button class="btn btn-info btn-sm" onclick="return confirm('Are you sure you want to move this entry back to the active entries page?')" type="submit" name="unarchive">Unarchive</button>
-          <button class="btn btn-warning btn-sm" onclick="return confirm('Are you sure you want to permanently delete this entry? (This action is irreversible!)')" type="submit" name="delete_entry">Delete</button>
+          <button class="btn btn-warning btn-sm" onclick="return confirm('Are you sure you want to permanently delete this entry? (This action is irreversible!)')" type="submit" name="delete_entry_archived">Delete</button>
         </div>
       </div>
       <input type="text" name="title" class="form-control col-sm" id="field1" value="<?php echo $row['title'] ?>" disabled />

@@ -15,8 +15,8 @@
       <div class="col-sm-6">
         <h1><b>My to-do list</b></h1>
       </div>
-      <div class="col-sm-6">
-        <h3><span class="badge badge-success" id="log"></span></h3>
+      <div class="col-sm text-center pt-3">
+        <h5><span class="badge badge-success" id="log"></span></h5>
       </div>
     </div>
     <div class="row">
@@ -33,7 +33,9 @@
           include "edit.phtml";
         } else if (isset($_POST['archived'])) {
           include "archived.phtml";
-        } else if (isset($_POST['delete_entry'])) {
+        } else if (isset($_POST['delete_entry_archived'])) {
+          include "archived.phtml";
+        } else if (isset($_POST['unarchive'])) {
           include "archived.phtml";
         } else {
           include "entries.phtml";

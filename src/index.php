@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
   $fetcher->insert($newEntry);
 }
 
-if (isset($_POST['delete_entry'])) {
+if (isset($_POST['delete_entry']) || (isset($_POST['delete_entry_archived']))) {
   BdFetcher::delete($_POST['id']);
 }
 

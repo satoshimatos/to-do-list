@@ -10,7 +10,8 @@ class BdFetcher
   {
     $connection = new Connection();
     $query = "SELECT * FROM todo" .
-    " WHERE archived='N'";
+    " WHERE archived='N'" .
+    " ORDER BY entry_time DESC";;
     $fetch = pg_query($connection->connect(),$query);
     $result = pg_fetch_all($fetch);
     if (!$result) {
@@ -25,7 +26,8 @@ class BdFetcher
   {
     $connection = new Connection();
     $query = "SELECT * FROM todo" .
-    " WHERE archived='Y'";
+    " WHERE archived='Y'" .
+    " ORDER BY entry_time DESC";
     $fetch = pg_query($connection->connect(),$query);
     $result = pg_fetch_all($fetch);
     if (!$result) {
@@ -40,7 +42,8 @@ class BdFetcher
   {
     $connection = new Connection();
     $query = "SELECT * FROM todo WHERE id=" .
-    (int) $id . " AND " . "archived='N'";
+    (int) $id . " AND " . "archived='N'" .
+    " ORDER BY entry_time DESC";
     $fetch = pg_query($connection->connect(),$query);
     $result = pg_fetch_assoc($fetch);
     if (!$result) {
@@ -91,13 +94,16 @@ class BdFetcher
 
   public function edit($id, $title, $description, $observations)
   {
+    $title = str_replace("'", "''", $title);
+    $description = str_replace("'", "''", $description);
+    $observations = str_replace("'", "''", $observations);
     $connection = new Connection();
-
+    $edit_time = date("Y-m-d H:i:s");
     $query = "UPDATE todo SET " .
       "title='" . $title . "'," .
       "description='" . $description . "'," .
       "observations='" . $observations . "'," .
-      "edited='Y' " .
+      "edited='Y', edit_time='" . $edit_time . "' " .
       "WHERE id=" . (int) $id . " AND " .
       "archived='N'";
     $result = pg_query($connection->connect(),$query);
